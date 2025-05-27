@@ -69,17 +69,7 @@ Frontend will run on: [http://localhost:5173](http://localhost:5173)
 ## 📬 Contact
 
 📧 **Email**: juancruzastradaduran80@gmail.com
-📍 **Location**: Aarhus, Denmark (home service only)  
+📍 **Location**: Aarhus, Denmark
 🔗 **Instagram** @PAINj9 
 
 ---
-
-## 💡 About
-
-BikeDrop was born out of the need to make bike maintenance easier, faster, and more convenient for everyday cyclists.  
-Whether you're a commuter, student, or weekend explorer — we take care of your bike right where you are, so you can keep riding without worry.
-=======
-```bash
-git clone https://github.com/PAINj9/bikedrop.git
-cd bikedrop
->>>>>>> 3cbfb91770801d1ab0ba815b3ee0adc4288533e3
