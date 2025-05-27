@@ -7,7 +7,6 @@ This project includes a fully functional web platform for customers to **book ap
 
 ---
 
-<<<<<<< HEAD
 ## 📸 Screenshots
 
 ### Main Page
@@ -20,7 +19,6 @@ This project includes a fully functional web platform for customers to **book ap
 ---
 
 =======
->>>>>>> 3cbfb91770801d1ab0ba815b3ee0adc4288533e3
 ## 🛠 Tech Stack
 
 - 🎨 **Frontend**: React + Tailwind CSS (located in `/client`)
