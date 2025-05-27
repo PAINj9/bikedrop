@@ -42,7 +42,6 @@ This project includes a fully functional web platform for customers to **book ap
 ## 🚀 Run the project locally
 
 ### 1. Clone the repository
-<<<<<<< HEAD
 ```bash
 git clone https://github.com/PAINj9/bikedrop.git
 cd bikedrop
