@@ -13,7 +13,7 @@ import Faq from "./pages/Faq";
 function App() {
   return (
     <BrowserRouter>
-      {/* 👇 Este contenedor es el que permite mostrar los toast en cualquier parte de la app */}
+      {}
       <ToastContainer 
         position="top-right"
         autoClose={3000}

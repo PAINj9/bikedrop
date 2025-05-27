@@ -39,7 +39,7 @@ export default function ServiceFeatures() {
               className="text-5xl mb-4"
               style={{ 
                 display: "inline-block", 
-                filter: "drop-shadow(0 0 8px rgba(59,130,246,0.6))", // Azul glow sutil
+                filter: "drop-shadow(0 0 8px rgba(59,130,246,0.6))",
               }}
             >
               {service.icon}

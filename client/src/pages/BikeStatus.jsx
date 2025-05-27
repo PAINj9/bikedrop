@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { motion } from "framer-motion";
-import { Helmet } from "react-helmet"; // 👈 agregado
+import { Helmet } from "react-helmet"; 
 
 export default function BikeStatus() {
   const [latestReservation, setLatestReservation] = useState(null);

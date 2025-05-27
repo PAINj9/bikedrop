@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Navbar from "../components/Navbar";
-import { Helmet } from "react-helmet"; // 👈 agregamos Helmet
+import { Helmet } from "react-helmet";
 
 const faqs = [
   {

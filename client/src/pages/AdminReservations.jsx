@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import { Helmet } from "react-helmet"; // 👈 Importamos Helmet
+import { Helmet } from "react-helmet"; 
 
 const estados = ["Todos", "Pendiente", "En progreso", "Completada"];
 
-// Helpers para mostrar fecha/hora en Copenhague
 function prettyDate(dateStr) {
   if (!dateStr) return "-";
   let d;
