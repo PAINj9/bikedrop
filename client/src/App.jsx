@@ -13,7 +13,8 @@ import About from "./pages/About"; // <--- AGREGADO
 
 function App() {
   return (
-    <BrowserRouter>
+    // 👇🏻 OJO: basename para github pages
+    <BrowserRouter basename="/bikedrop">
       <ToastContainer 
         position="top-right"
         autoClose={3000}
