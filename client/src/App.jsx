@@ -9,11 +9,11 @@ import AdminReservations from "./pages/AdminReservations";
 import MainMenu from "./pages/MainMenu";
 import BikeDropPage from "./pages/BikeDropPage";
 import Faq from "./pages/Faq";
+import About from "./pages/About"; // <--- AGREGADO
 
 function App() {
   return (
     <BrowserRouter>
-      {}
       <ToastContainer 
         position="top-right"
         autoClose={3000}
@@ -34,6 +34,7 @@ function App() {
         <Route path="/status" element={<BikeStatus />} />
         <Route path="/admin/reservations" element={<AdminReservations />} />
         <Route path="/faq" element={<Faq />} />
+        <Route path="/about" element={<About />} /> {/* <--- RUTA ABOUT */}
       </Routes>
     </BrowserRouter>
   );

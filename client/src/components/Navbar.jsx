@@ -42,6 +42,12 @@ const Navbar = ({ small }) => {
           </span>
         </Link>
         <nav className="hidden md:flex gap-8 items-center">
+          <Link
+            to="/about"
+            className="text-gray-700 hover:text-black transition"
+          >
+            About
+          </Link>
           <a
             href="#services"
             className="text-gray-700 hover:text-black transition"
@@ -49,10 +55,10 @@ const Navbar = ({ small }) => {
             Services
           </a>
           <a
-            href="#about"
+            href="#plans"
             className="text-gray-700 hover:text-black transition"
           >
-            About
+            Plans
           </a>
           <a
             href="/faq"

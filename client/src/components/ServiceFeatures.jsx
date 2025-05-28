@@ -27,7 +27,7 @@ export default function ServiceFeatures() {
       whileInView={{ opacity: 1, y: 0 }} 
       transition={{ duration: 0.8 }} 
       viewport={{ once: true }}
-      className="bg-gray-100 py-20 px-6 md:px-20"
+      className="bg-gray-100 py-20 px-6 md:px-20 scroll-mt-24"
     >
       <h2 className="text-3xl font-semibold text-center mb-12">Our Services</h2>
       <div className="grid md:grid-cols-3 gap-10 text-center">
