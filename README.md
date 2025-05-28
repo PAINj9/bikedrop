@@ -12,6 +12,8 @@ This project includes a fully functional web platform for customers to **book ap
 ### Main Page
 ![Screenshot 1](client/public/Screenshot_1.jpg)
 
+---
+
 ### Appointment Page
 ![Screenshot 2](client/public/Screenshot_2.jpg)
 
@@ -67,7 +69,7 @@ Frontend will run on: [http://localhost:5173](http://localhost:5173)
 ## 📬 Contact
 
 📧 **Email**: juancruzastradaduran80@gmail.com
-📍 **Location**: Aarhus, Denmark (home service only)  
+📍 **Location**: Aarhus, Denmark
 🔗 **Instagram** @PAINj9 
 
 ---
