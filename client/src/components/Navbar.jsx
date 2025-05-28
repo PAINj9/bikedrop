@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = ({ small }) => {
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -11,6 +13,30 @@ const Navbar = ({ small }) => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Logo click: si ya estoy en /main, scrolleo arriba, si no, navego a /main
+  const handleLogoClick = (e) => {
+    e.preventDefault();
+    if (location.pathname === "/main") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      navigate("/main");
+    }
+  };
+
+  // Clicks en anchors inteligentes: si estoy en /main, scrolleo, si no, navego y seteo el anchor
+  const handleAnchorClick = (e, anchorId) => {
+    e.preventDefault();
+    if (location.pathname === "/main") {
+      const section = document.getElementById(anchorId);
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    } else {
+      localStorage.setItem("scrollToAnchor", anchorId);
+      navigate("/main");
+    }
+  };
 
   return (
     <header
@@ -21,7 +47,12 @@ const Navbar = ({ small }) => {
       }`}
     >
       <div className="flex justify-between items-center px-6 md:px-20">
-        <Link to="/main" className="flex items-center gap-2 cursor-pointer">
+        {/* LOGO */}
+        <a
+          href="/main"
+          onClick={handleLogoClick}
+          className="flex items-center gap-2 cursor-pointer"
+        >
           <img
             src="/Ready1Logo.png"
             alt="BikeDrop logo"
@@ -40,38 +71,51 @@ const Navbar = ({ small }) => {
           >
             BikeDrop
           </span>
-        </Link>
+        </a>
         <nav className="hidden md:flex gap-8 items-center">
-          <Link
-            to="/about"
+          {/* About - nueva pestaña */}
+          <a
+            href="/about"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-gray-700 hover:text-black transition"
           >
             About
-          </Link>
+          </a>
+          {/* Services - scroll inteligente */}
           <a
             href="#services"
+            onClick={(e) => handleAnchorClick(e, "services")}
             className="text-gray-700 hover:text-black transition"
           >
             Services
           </a>
+          {/* Plans - scroll inteligente */}
           <a
             href="#plans"
+            onClick={(e) => handleAnchorClick(e, "plans")}
             className="text-gray-700 hover:text-black transition"
           >
             Plans
           </a>
+          {/* FAQ - solo muestra si NO estoy en /faq */}
+          {location.pathname !== "/faq" && (
+            <a
+              href="/faq"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-700 hover:text-black transition"
+            >
+              FAQ
+            </a>
+          )}
+          {/* Book Now */}
           <a
-            href="/faq"
-            className="text-gray-700 hover:text-black transition"
-          >
-            FAQ
-          </a>
-          <Link
-            to="/book"
+            href="/book"
             className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
           >
             Book Now
-          </Link>
+          </a>
         </nav>
       </div>
     </header>

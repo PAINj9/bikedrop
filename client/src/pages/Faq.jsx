@@ -46,7 +46,13 @@ const Faq = () => {
 
       <div className="min-h-screen bg-white text-gray-800">
         <Navbar />
-        <div className="max-w-4xl mx-auto py-16 px-6">
+        {/* Animación de entrada al FAQ */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.77, 0, 0.175, 1] }}
+          className="max-w-4xl mx-auto py-16 px-6"
+        >
           <h1 className="text-3xl font-bold mb-10 text-center">
             Frequently Asked Questions
           </h1>
@@ -74,10 +80,23 @@ const Faq = () => {
                       animate="open"
                       exit="collapsed"
                       variants={{
-                        open: { height: "auto", opacity: 1 },
-                        collapsed: { height: 0, opacity: 0 },
+                        open: {
+                          height: "auto",
+                          opacity: 1,
+                          transition: {
+                            height: { duration: 0.5, ease: [0.77, 0, 0.175, 1] },
+                            opacity: { duration: 0.4, delay: 0.08, ease: "easeInOut" }
+                          }
+                        },
+                        collapsed: {
+                          height: 0,
+                          opacity: 0,
+                          transition: {
+                            height: { duration: 0.5, ease: [0.77, 0, 0.175, 1] },
+                            opacity: { duration: 0.25, ease: "easeInOut" }
+                          }
+                        }
                       }}
-                      transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
                       style={{ overflow: "hidden" }}
                     >
                       <div className="px-6 pb-4 pt-1 text-gray-600">
@@ -89,7 +108,7 @@ const Faq = () => {
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </>
   );

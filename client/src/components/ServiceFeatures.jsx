@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 
 const services = [
@@ -21,13 +20,13 @@ const services = [
 
 export default function ServiceFeatures() {
   return (
-    <motion.section 
+    <motion.section
       id="services"
-      initial={{ opacity: 0, y: 30 }} 
-      whileInView={{ opacity: 1, y: 0 }} 
-      transition={{ duration: 0.8 }} 
-      viewport={{ once: true }}
-      className="bg-gray-100 py-20 px-6 md:px-20 scroll-mt-24"
+      className="py-20 px-6 md:px-20 bg-gray-100 scroll-mt-24"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      viewport={{ once: false }}
     >
       <h2 className="text-3xl font-semibold text-center mb-12">Our Services</h2>
       <div className="grid md:grid-cols-3 gap-10 text-center">
@@ -37,8 +36,8 @@ export default function ServiceFeatures() {
               whileHover={{ scale: 1.2 }}
               transition={{ type: "spring", stiffness: 300 }}
               className="text-5xl mb-4"
-              style={{ 
-                display: "inline-block", 
+              style={{
+                display: "inline-block",
                 filter: "drop-shadow(0 0 8px rgba(59,130,246,0.6))",
               }}
             >

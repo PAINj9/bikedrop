@@ -2,37 +2,20 @@ import { Star } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function PlansSection({ plans }) {
-  // Props para animación de framer-motion
-  const basicMotion = {
-    whileHover: {
-      scale: 1.05,
-      boxShadow: "0 0 30px 0 rgba(59,130,246,0.35)",
-      transition: { duration: 0.3, ease: [0.77, 0, 0.175, 1] },
-    },
-  };
-  const proMotion = {
-    whileHover: {
-      scale: 1.10,
-      boxShadow: "0 0 40px 4px rgba(253,224,71,0.65)",
-      transition: { duration: 0.3, ease: [0.77, 0, 0.175, 1] },
-    },
-  };
-  const completeMotion = {
-    whileHover: {
-      scale: 1.05,
-      boxShadow: "0 0 40px 4px rgba(59,130,246,0.30)",
-      transition: { duration: 0.3, ease: [0.77, 0, 0.175, 1] },
-    },
-  };
+  // Opcionales: props de animación si las querés de vuelta en las cards
 
   return (
-    <section id="plans" className="py-20 px-6 md:px-20 bg-gray-50 scroll-mt-24">
+    <section
+      id="plans"
+      className="py-20 px-6 md:px-20 bg-gray-50 scroll-mt-24"
+    >
       <h2 className="text-3xl font-semibold text-center mb-12">Monthly Plans</h2>
       <div className="flex flex-col md:flex-row justify-center items-stretch gap-6">
 
         {/* Basic */}
         <motion.div
-          {...basicMotion}
+          whileHover={{ scale: 1.05, boxShadow: "0 0 30px 0 rgba(59,130,246,0.35)" }}
+          transition={{ duration: 0.3, ease: [0.77, 0, 0.175, 1] }}
           className="flex-1 bg-white border border-gray-200 rounded-2xl shadow-md p-8 flex flex-col items-center min-w-[270px] max-w-[320px] transition-shadow"
           style={{ willChange: "transform" }}
         >
@@ -47,17 +30,13 @@ export default function PlansSection({ plans }) {
               </li>
             ))}
           </ul>
-          <a
-            href="#book"
-            className="py-2 px-8 rounded-xl font-bold bg-blue-600 text-white hover:bg-blue-700 transition inline-block"
-          >
-            Choose
-          </a>
+          <button className="py-2 px-8 rounded-xl font-bold bg-blue-600 text-white hover:bg-blue-700 transition">Choose</button>
         </motion.div>
 
         {/* Pro */}
         <motion.div
-          {...proMotion}
+          whileHover={{ scale: 1.08, boxShadow: "0 0 40px 4px rgba(253,224,71,0.65)" }}
+          transition={{ duration: 0.3, ease: [0.77, 0, 0.175, 1] }}
           className="relative flex-1 bg-white border-2 border-yellow-400 rounded-2xl shadow-lg p-10 flex flex-col items-center min-w-[320px] max-w-[370px] z-10 scale-105 transition-shadow"
           style={{ willChange: "transform" }}
         >
@@ -75,17 +54,13 @@ export default function PlansSection({ plans }) {
               </li>
             ))}
           </ul>
-          <a
-            href="#book"
-            className="py-2 px-8 rounded-xl font-bold bg-yellow-400 text-white hover:bg-yellow-500 shadow-md transition inline-block"
-          >
-            Choose
-          </a>
+          <button className="py-2 px-8 rounded-xl font-bold bg-yellow-400 text-white hover:bg-yellow-500 shadow-md transition">Choose</button>
         </motion.div>
 
         {/* Complete */}
         <motion.div
-          {...completeMotion}
+          whileHover={{ scale: 1.05, boxShadow: "0 0 40px 4px rgba(59,130,246,0.30)" }}
+          transition={{ duration: 0.3, ease: [0.77, 0, 0.175, 1] }}
           className="relative flex-1 bg-white border-2 border-blue-400 rounded-2xl shadow-lg p-10 flex flex-col items-center min-w-[320px] max-w-[370px] transition-shadow"
           style={{ willChange: "transform" }}
         >
@@ -103,12 +78,7 @@ export default function PlansSection({ plans }) {
               </li>
             ))}
           </ul>
-          <a
-            href="#book"
-            className="py-2 px-8 rounded-xl font-bold bg-blue-500 text-white hover:bg-blue-600 shadow-md transition inline-block"
-          >
-            Choose
-          </a>
+          <button className="py-2 px-8 rounded-xl font-bold bg-blue-500 text-white hover:bg-blue-600 shadow-md transition">Choose</button>
         </motion.div>
       </div>
     </section>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet";
 
@@ -20,7 +20,7 @@ export default function BikeDropPage() {
       features: ["Cleaning", "Brake & gear adjustment"],
     },
     {
-      title: "Pro", // <-- Este es el plan PRO, va en el centro
+      title: "Pro",
       subtitle: "For high mileage cyclists",
       visits: "4 visits/month",
       price: "650 DKK/month",
@@ -36,7 +36,22 @@ export default function BikeDropPage() {
       features: ["All from Basic", "Chain lubrication", "Wheel truing"],
     },
   ];
-  
+
+  // --- Scroll inteligente: al entrar, hace scroll a anchor o arriba del todo ---
+  useEffect(() => {
+    const anchor = localStorage.getItem("scrollToAnchor");
+    if (anchor) {
+      const el = document.getElementById(anchor);
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 350); // Delay para asegurar render
+      }
+      localStorage.removeItem("scrollToAnchor");
+    } else {
+      window.scrollTo({ top: 0, behavior: "auto" });
+    }
+  }, []);
 
   return (
     <>
@@ -52,7 +67,9 @@ export default function BikeDropPage() {
       >
         <Navbar />
         <BikeDropHero />
+        {/* SECTION SERVICES: asegurate que tenga id="services" */}
         <ServiceFeatures />
+        {/* SECTION PLANS: asegurate que tenga id="plans" */}
         <PlansSection plans={plans} />
         <CTASection />
         <Footer />
