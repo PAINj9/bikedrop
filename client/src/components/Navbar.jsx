@@ -54,11 +54,9 @@ const Navbar = ({ small }) => {
           className="flex items-center gap-2 cursor-pointer"
         >
           <img
-            src="/Ready1Logo.png"
+            src="Ready1Logo.png"
             alt="BikeDrop logo"
-            className={`${
-              small ? "h-10" : "h-20"
-            } w-auto transition-all duration-300`}
+            className={`${small ? "h-10" : "h-20"} w-auto transition-all duration-300`}
           />
           <span
             className={`font-bold transition-all duration-300 ${
