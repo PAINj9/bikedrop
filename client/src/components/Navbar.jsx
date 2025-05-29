@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const Navbar = ({ small }) => {
   const [scrolled, setScrolled] = useState(false);
@@ -54,9 +55,11 @@ const Navbar = ({ small }) => {
           className="flex items-center gap-2 cursor-pointer"
         >
           <img
-            src="Ready1Logo.png"
+            src="/Ready1Logo.png"
             alt="BikeDrop logo"
-            className={`${small ? "h-10" : "h-20"} w-auto transition-all duration-300`}
+            className={`${
+              small ? "h-10" : "h-20"
+            } w-auto transition-all duration-300`}
           />
           <span
             className={`font-bold transition-all duration-300 ${
@@ -71,15 +74,13 @@ const Navbar = ({ small }) => {
           </span>
         </a>
         <nav className="hidden md:flex gap-8 items-center">
-          {/* About - nueva pestaña */}
-          <a
-            href="/about"
-            target="_blank"
-            rel="noopener noreferrer"
+          {/* About */}
+          <Link
+            to="/about"
             className="text-gray-700 hover:text-black transition"
           >
             About
-          </a>
+          </Link>
           {/* Services - scroll inteligente */}
           <a
             href="#services"
@@ -98,22 +99,23 @@ const Navbar = ({ small }) => {
           </a>
           {/* FAQ - solo muestra si NO estoy en /faq */}
           {location.pathname !== "/faq" && (
-            <a
-              href="/faq"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/faq"
               className="text-gray-700 hover:text-black transition"
             >
               FAQ
-            </a>
+            </Link>
           )}
-          {/* Book Now */}
-          <a
-            href="/book"
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-          >
-            Book Now
-          </a>
+          {/* Book Now con framer-motion */}
+          <Link to="/book">
+            <motion.button
+              whileHover={{ scale: 1.06 }}
+              whileTap={{ scale: 0.98 }}
+              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+            >
+              Book Now
+            </motion.button>
+          </Link>
         </nav>
       </div>
     </header>
