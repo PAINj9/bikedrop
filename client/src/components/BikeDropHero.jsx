@@ -9,7 +9,7 @@ export default function BikeDropHero() {
       {/* Imagen para MOBILE (arriba del texto, con efecto hover/tap) */}
       <div className="block md:hidden w-full h-56 mb-6">
         <motion.img
-          src="/bikedrop/bike-hero.jpg" // Ruta corregida para GitHub Pages subcarpeta
+          src="bike-hero.jpg" // Ruta corregida (sin barra al principio)
           alt="Woman riding a bike"
           className="w-full h-full object-cover rounded-2xl"
           whileHover={{ scale: 1.05 }}
@@ -21,7 +21,7 @@ export default function BikeDropHero() {
       {/* Imagen para DESKTOP (derecha, diagonal, con efecto hover) */}
       <div className="hidden md:block absolute inset-y-0 right-0 w-3/5 h-full z-10">
         <motion.img
-          src="/bikedrop/bike-hero.jpg" // Ruta corregida para GitHub Pages subcarpeta
+          src="bike-hero.jpg" // Ruta corregida (sin barra al principio)
           alt="Woman riding a bike"
           className="w-full h-full object-cover"
           style={{
