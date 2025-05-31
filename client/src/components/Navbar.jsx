@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import readyLogo from '../assets/Ready1Logo.png'; // Ajustá el path si tu Navbar.jsx está en otra carpeta
 
 const Navbar = ({ small }) => {
   const [scrolled, setScrolled] = useState(false);
@@ -55,11 +56,9 @@ const Navbar = ({ small }) => {
           className="flex items-center gap-2 cursor-pointer"
         >
           <img
-            src="/Ready1Logo.png"
+            src={readyLogo}
             alt="BikeDrop logo"
-            className={`${
-              small ? "h-10" : "h-20"
-            } w-auto transition-all duration-300`}
+            className={`${small ? "h-10" : "h-20"} w-auto transition-all duration-300`}
           />
           <span
             className={`font-bold transition-all duration-300 ${

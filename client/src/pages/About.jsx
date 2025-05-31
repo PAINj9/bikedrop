@@ -107,7 +107,7 @@ export default function About() {
                   <strong>Email:</strong> info@bikedrop.dk
                 </span>
                 <span className="block mb-1">
-                  <strong>Phone:</strong> +45 12 34 56 78
+                  <strong>Phone:</strong> +45 52 90 97 21
                 </span>
                 <span className="block">
                   <strong>Instagram:</strong> <a className="text-blue-600 underline" href="https://instagram.com/BikeDropDK" target="_blank" rel="noopener noreferrer">@BikeDropDK</a>

@@ -13,7 +13,7 @@ import About from "./pages/About";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/bikedrop">
       <ToastContainer 
         position="top-right"
         autoClose={3000}
