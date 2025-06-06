@@ -15,6 +15,7 @@ export default function CalendarSelector({
   value,
   onChange,
   bookedSlotsByDate = {},
+  errors = {},
 }) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -24,7 +25,6 @@ export default function CalendarSelector({
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedSlot, setSelectedSlot] = useState(null);
 
-  // ✅ Corregido: no usa toISOString
   function getDateString(dateObj) {
     if (!dateObj) return null;
     const year = dateObj.getFullYear();
@@ -104,6 +104,9 @@ export default function CalendarSelector({
 
   return (
     <div className="bg-white rounded-xl shadow-lg p-6 max-w-lg mx-auto mb-6">
+      <div className="font-semibold mb-3 text-gray-700 text-center">
+        Select a day to see available times
+      </div>
       <div className="flex justify-between items-center mb-2">
         <button
           type="button"
@@ -117,7 +120,7 @@ export default function CalendarSelector({
           &lt;
         </button>
         <span className="font-bold text-lg">
-          {new Date(year, month).toLocaleString("default", {
+          {new Date(year, month).toLocaleString("en-US", {
             month: "long",
             year: "numeric",
           })}
@@ -174,8 +177,8 @@ export default function CalendarSelector({
       <div className="mt-4">
         <div className="font-semibold mb-2 text-gray-700">
           {selectedDate
-            ? `Available times for ${selectedDate.toLocaleDateString()}`
-            : "Select a day to see available times"}
+            ? `Available times for ${selectedDate.toLocaleDateString("en-US")}`
+            : null}
         </div>
         <div className="flex flex-wrap gap-2">
           {selectedDate &&
@@ -207,6 +210,12 @@ export default function CalendarSelector({
           <span className="text-gray-400 italic">
             No times available for this day
           </span>
+        )}
+        {errors.date && (
+          <div className="text-red-600 text-sm mt-1">{errors.date}</div>
+        )}
+        {errors.slot && (
+          <div className="text-red-600 text-sm mt-1">{errors.slot}</div>
         )}
       </div>
     </div>

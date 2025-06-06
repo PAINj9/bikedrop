@@ -3,6 +3,6 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
- //base: '/bikedrop/', 
+ base: '/bikedrop/', 
  //TENGO QUE SACAR ESAS BARRAS DE ARRIBA PARA DEPLOYEAR, Y DEJARLAS PARA PROGRAMAR EN LOCALHOST
 })

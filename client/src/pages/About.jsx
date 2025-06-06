@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Helmet } from "react-helmet";
+import Ready1Logo from "../assets/Ready1Logo.png"; // 👈 IMPORTANTE
 
 const cardVariants = {
   hidden: { opacity: 0, y: 40 },
@@ -110,12 +111,20 @@ export default function About() {
                   <strong>Phone:</strong> +45 52 90 97 21
                 </span>
                 <span className="block">
-                  <strong>Instagram:</strong> <a className="text-blue-600 underline" href="https://instagram.com/BikeDropDK" target="_blank" rel="noopener noreferrer">@BikeDropDK</a>
+                  <strong>Instagram:</strong>{" "}
+                  <a
+                    className="text-blue-600 underline"
+                    href="https://instagram.com/BikeDropDK"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    @BikeDropDK
+                  </a>
                 </span>
               </div>
             </div>
             <img
-              src="/Ready1Logo.png"
+              src={Ready1Logo} // 👈 Ahora funciona siempre
               alt="BikeDrop logo"
               className="w-24 h-24 md:w-32 md:h-32 rounded-2xl object-contain drop-shadow"
               draggable="false"

@@ -34,7 +34,7 @@ function App() {
         <Route path="/status" element={<BikeStatus />} />
         <Route path="/admin/reservations" element={<AdminReservations />} />
         <Route path="/faq" element={<Faq />} />
-        <Route path="/about" element={<About />} /> {}
+        <Route path="/about" element={<About />} />
       </Routes>
     </BrowserRouter>
   );

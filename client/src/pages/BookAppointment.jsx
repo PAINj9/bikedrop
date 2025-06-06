@@ -1,32 +1,44 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar";
-import { motion } from "framer-motion";
-import CalendarSelector from "../components/CalendarSelector";
 import { toast } from "react-toastify";
 import { Helmet } from "react-helmet";
+import Navbar from "../components/Navbar";
+import CalendarSelector from "../components/CalendarSelector";
+import PlanSelector from "../components/PlanSelector";
+import StepProgressBar from "../components/StepProgressBar";
+import OrderSummary from "../components/OrderSummary"; // Te paso abajo cómo hacerlo simple
 
 export default function BookAppointment() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
-  const [dateTime, setDateTime] = useState({ date: null, slot: null });
-  const [bookedSlotsByDate, setBookedSlotsByDate] = useState({});
-
+  // Campos y errores
   const [form, setForm] = useState({
     name: "",
+    phone: "",
+    email: "",
     address: "",
     floor: "",
     city: "",
     postalCode: "",
-    phone: "",
-    email: "",
-    note: "",
-    service: {
-      clean: false,
-      brakeInspection: false,
-      chainReplacement: false,
-    },
   });
+  const [errors, setErrors] = useState({});
+  const [dateTime, setDateTime] = useState({ date: null, slot: null });
+  const [bookedSlotsByDate, setBookedSlotsByDate] = useState({});
+  const [selectedPlan, setSelectedPlan] = useState("");
+  const [planError, setPlanError] = useState("");
+  const [step, setStep] = useState(1);
+
+  // Refs para enfocar campos con error
+  const inputRefs = {
+    name: useRef(null),
+    phone: useRef(null),
+    email: useRef(null),
+    address: useRef(null),
+    floor: useRef(null),
+    city: useRef(null),
+    postalCode: useRef(null),
+  };
 
   useEffect(() => {
     fetch("http://localhost:5000/api/reservations")
@@ -48,50 +60,111 @@ export default function BookAppointment() {
       });
   }, []);
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    if (type === "checkbox") {
-      setForm((prev) => ({
-        ...prev,
-        service: {
-          ...prev.service,
-          [name]: checked,
-        },
-      }));
-    } else {
-      setForm((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
+  // Validación campo a campo
+  function validateField(name, value) {
+    switch (name) {
+      case "name":
+        if (!value.trim() || value.length < 2) return "Please enter your name.";
+        break;
+      case "phone":
+        if (!/^\d{7,}$/.test(value)) return "Valid phone (min 7 digits, numbers only).";
+        break;
+      case "email":
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return "Enter a valid email.";
+        break;
+      case "address":
+        if (!value.trim() || value.length < 2) return "Enter your address.";
+        break;
+      case "floor":
+        if (!value.trim()) return "Enter the floor.";
+        break;
+      case "city":
+        if (!value.trim() || value.length < 2) return "Enter your city.";
+        break;
+      case "postalCode":
+        if (!value.trim()) return "Enter the postal code.";
+        break;
+      default:
+        return "";
     }
+    return "";
+  }
+
+  // Control de cambios
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    // Solo números en phone
+    let newValue = value;
+    if (name === "phone") newValue = value.replace(/\D/g, "");
+
+    setForm((prev) => ({
+      ...prev,
+      [name]: newValue,
+    }));
+
+    setErrors((prev) => ({
+      ...prev,
+      [name]: validateField(name, newValue),
+    }));
   };
 
+  // Si todos los campos están OK
+  const isPersonalInfoValid = () => {
+    return ["name", "phone", "email", "address", "floor", "city", "postalCode"]
+      .every((f) => !validateField(f, form[f]));
+  };
+
+  const isFormValid = () => {
+    return (
+      isPersonalInfoValid() &&
+      dateTime.date &&
+      dateTime.slot &&
+      selectedPlan
+    );
+  };
+
+  // Control de pasos visual
+  useEffect(() => {
+    if (!isPersonalInfoValid()) setStep(1);
+    else if (!dateTime.date || !dateTime.slot) setStep(2);
+    else if (!selectedPlan) setStep(3);
+    else setStep(4);
+  }, [form, dateTime, selectedPlan]);
+
+  // Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const selectedServices = Object.entries(form.service)
-      .filter(([_, checked]) => checked)
-      .map(([service]) => service.charAt(0).toUpperCase() + service.slice(1))
-      .join(", ");
 
-    if (
-      !form.name ||
-      !form.address ||
-      !form.city ||
-      !form.phone ||
-      !form.email ||
-      !dateTime.date ||
-      !dateTime.slot ||
-      !selectedServices
-    ) {
-      toast.error("Please fill in all required fields and select a date/time.");
+    // Validar campos personales
+    const newErrors = {};
+    ["name", "phone", "email", "address", "floor", "city", "postalCode"].forEach((field) => {
+      const err = validateField(field, form[field]);
+      if (err) newErrors[field] = err;
+    });
+    setErrors(newErrors);
+
+    if (!isPersonalInfoValid()) {
+      toast.error("Please complete all required fields.");
+      const firstError = Object.keys(newErrors)[0];
+      if (inputRefs[firstError] && inputRefs[firstError].current) {
+        inputRefs[firstError].current.focus();
+      }
       return;
     }
 
-    if (!/^\d+$/.test(form.phone)) {
-      toast.error("Phone number must contain only digits.");
+    if (!dateTime.date || !dateTime.slot) {
+      toast.error("Please select a date and time.");
+      return;
+    }
+    if (!selectedPlan) {
+      setPlanError("Please choose a plan.");
+      toast.error("Please choose a plan.");
       return;
     }
 
+    setPlanError("");
+
+    // Payload
     const payload = {
       ...form,
       date:
@@ -99,8 +172,10 @@ export default function BookAppointment() {
           ? dateTime.date
           : dateTime.date?.toISOString().slice(0, 10),
       time: dateTime.slot,
-      service: selectedServices,
+      service: selectedPlan, // Guarda el plan (basic/complete/pro)
     };
+
+    setLoading(true);
 
     try {
       const res = await fetch("http://localhost:5000/api/reservations", {
@@ -117,6 +192,8 @@ export default function BookAppointment() {
       }
     } catch {
       toast.error("Server connection error.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -125,154 +202,185 @@ export default function BookAppointment() {
       <Helmet>
         <title>BikeDrop | Appointment</title>
       </Helmet>
+      <Navbar small />
 
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 40 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-100"
-      >
-        <Navbar small />
-        <div className="flex justify-center items-center min-h-[80vh] pt-12 mb-10">
-          <motion.div
-            initial={{ scale: 0.97, opacity: 0.5 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-            className="w-full max-w-3xl bg-white border border-blue-100 shadow-2xl rounded-3xl px-8 py-10"
+      <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-blue-50 via-white to-blue-100">
+        <div className="w-full max-w-5xl">
+          <StepProgressBar currentStep={step} />
+
+          <form
+            onSubmit={handleSubmit}
+            className="w-full bg-white border border-blue-100 shadow-2xl rounded-3xl px-10 py-12 mt-6 mb-12 transition-all duration-300"
+            autoComplete="off"
           >
             <h2 className="text-3xl font-bold mb-7 text-blue-700 text-center">
               Book Appointment
             </h2>
-            <form onSubmit={handleSubmit} className="space-y-5 mt-2">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Full Name*"
-                  value={form.name}
-                  onChange={handleChange}
-                  className="border border-gray-300 p-3 rounded-lg focus:outline-blue-400"
-                  required
-                />
-                <input
-                  type="tel"
-                  name="phone"
-                  placeholder="Phone*"
-                  value={form.phone}
-                  onChange={handleChange}
-                  className="border border-gray-300 p-3 rounded-lg focus:outline-blue-400"
-                  required
-                />
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email*"
-                  value={form.email}
-                  onChange={handleChange}
-                  className="border border-gray-300 p-3 rounded-lg focus:outline-blue-400"
-                  required
-                />
-                <input
-                  type="text"
-                  name="city"
-                  placeholder="City*"
-                  value={form.city}
-                  onChange={handleChange}
-                  className="border border-gray-300 p-3 rounded-lg focus:outline-blue-400"
-                  required
-                />
-              </div>
-              <input
-                type="text"
-                name="address"
-                placeholder="Address*"
-                value={form.address}
-                onChange={handleChange}
-                className="border border-gray-300 p-3 rounded-lg w-full focus:outline-blue-400"
-                required
-              />
-              <div className="flex gap-4">
-                <input
-                  type="text"
-                  name="floor"
-                  placeholder="Floor"
-                  value={form.floor}
-                  onChange={handleChange}
-                  className="border border-gray-300 p-3 rounded-lg w-1/2 focus:outline-blue-400"
-                />
-                <input
-                  type="text"
-                  name="postalCode"
-                  placeholder="Postal Code"
-                  value={form.postalCode}
-                  onChange={handleChange}
-                  className="border border-gray-300 p-3 rounded-lg w-1/2 focus:outline-blue-400"
-                />
-              </div>
-              <CalendarSelector
-                value={dateTime}
-                onChange={setDateTime}
-                bookedSlotsByDate={bookedSlotsByDate}
-              />
-              <fieldset className="mb-2">
-                <legend className="font-semibold mb-2 text-gray-700">
-                  Service(s)*
-                </legend>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <label className="flex items-center gap-2 cursor-pointer">
+            <div className="flex flex-col lg:flex-row gap-8">
+              {/* FORMULARIO */}
+              <div className="flex-1 transition-all duration-500">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
                     <input
-                      type="checkbox"
-                      name="clean"
-                      checked={form.service.clean}
+                      ref={inputRefs.name}
+                      type="text"
+                      name="name"
+                      placeholder="Full Name*"
+                      value={form.name}
                       onChange={handleChange}
-                      className="accent-blue-600"
+                      className="border border-gray-300 p-3 rounded-lg w-full focus:outline-blue-400"
+                      required
+                      maxLength={40}
                     />
-                    Clean
-                  </label>
-                  <label className="flex items-center gap-2 cursor-pointer">
+                    {errors.name && (
+                      <div className="text-red-600 text-sm mt-1">{errors.name}</div>
+                    )}
+                  </div>
+                  <div>
                     <input
-                      type="checkbox"
-                      name="brakeInspection"
-                      checked={form.service.brakeInspection}
+                      ref={inputRefs.phone}
+                      type="tel"
+                      name="phone"
+                      placeholder="Phone*"
+                      value={form.phone}
                       onChange={handleChange}
-                      className="accent-blue-600"
+                      className="border border-gray-300 p-3 rounded-lg w-full focus:outline-blue-400"
+                      required
+                      maxLength={15}
                     />
-                    Brake Inspection
-                  </label>
-                  <label className="flex items-center gap-2 cursor-pointer">
+                    {errors.phone && (
+                      <div className="text-red-600 text-sm mt-1">{errors.phone}</div>
+                    )}
+                  </div>
+                  <div>
                     <input
-                      type="checkbox"
-                      name="chainReplacement"
-                      checked={form.service.chainReplacement}
+                      ref={inputRefs.email}
+                      type="email"
+                      name="email"
+                      placeholder="Email*"
+                      value={form.email}
                       onChange={handleChange}
-                      className="accent-blue-600"
+                      className="border border-gray-300 p-3 rounded-lg w-full focus:outline-blue-400"
+                      required
+                      maxLength={60}
                     />
-                    Chain Replacement
-                  </label>
+                    {errors.email && (
+                      <div className="text-red-600 text-sm mt-1">{errors.email}</div>
+                    )}
+                  </div>
+                  <div>
+                    <input
+                      ref={inputRefs.city}
+                      type="text"
+                      name="city"
+                      placeholder="City*"
+                      value={form.city}
+                      onChange={handleChange}
+                      className="border border-gray-300 p-3 rounded-lg w-full focus:outline-blue-400"
+                      required
+                      maxLength={30}
+                    />
+                    {errors.city && (
+                      <div className="text-red-600 text-sm mt-1">{errors.city}</div>
+                    )}
+                  </div>
                 </div>
-              </fieldset>
-              <textarea
-                name="note"
-                placeholder="Additional notes (optional)"
-                value={form.note}
-                onChange={handleChange}
-                className="border border-gray-300 p-3 rounded-lg w-full focus:outline-blue-400"
-                rows={3}
-              />
-              <motion.button
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.98 }}
-                type="submit"
-                className="w-full bg-blue-600 text-white font-semibold py-3 rounded-xl text-lg shadow-lg hover:bg-blue-700 transition"
-                disabled={!dateTime.date || !dateTime.slot}
+                <input
+                  ref={inputRefs.address}
+                  type="text"
+                  name="address"
+                  placeholder="Address*"
+                  value={form.address}
+                  onChange={handleChange}
+                  className="border border-gray-300 p-3 rounded-lg w-full focus:outline-blue-400 mt-4"
+                  required
+                  maxLength={50}
+                />
+                {errors.address && (
+                  <div className="text-red-600 text-sm mt-1">{errors.address}</div>
+                )}
+                <div className="flex gap-4 mt-4">
+                  <div className="w-1/2">
+                    <input
+                      ref={inputRefs.floor}
+                      type="text"
+                      name="floor"
+                      placeholder="Floor*"
+                      value={form.floor}
+                      onChange={handleChange}
+                      className="border border-gray-300 p-3 rounded-lg w-full focus:outline-blue-400"
+                      required
+                      maxLength={10}
+                    />
+                    {errors.floor && (
+                      <div className="text-red-600 text-sm mt-1">{errors.floor}</div>
+                    )}
+                  </div>
+                  <div className="w-1/2">
+                    <input
+                      ref={inputRefs.postalCode}
+                      type="text"
+                      name="postalCode"
+                      placeholder="Postal Code*"
+                      value={form.postalCode}
+                      onChange={handleChange}
+                      className="border border-gray-300 p-3 rounded-lg w-full focus:outline-blue-400"
+                      required
+                      maxLength={12}
+                    />
+                    {errors.postalCode && (
+                      <div className="text-red-600 text-sm mt-1">{errors.postalCode}</div>
+                    )}
+                  </div>
+                </div>
+                {/* CALENDARIO y PLAN */}
+                <div className="mt-8">
+                  {isPersonalInfoValid() && (
+                    <CalendarSelector
+                      value={dateTime}
+                      onChange={setDateTime}
+                      bookedSlotsByDate={bookedSlotsByDate}
+                      errors={errors}
+                    />
+                  )}
+                  {isPersonalInfoValid() && dateTime.date && dateTime.slot && (
+                    <PlanSelector
+                      value={selectedPlan}
+                      onChange={setSelectedPlan}
+                      error={planError}
+                    />
+                  )}
+                </div>
+                <button
+                  type="submit"
+                  className={`w-full bg-blue-600 text-white font-semibold py-3 rounded-xl text-lg shadow-lg hover:bg-blue-700 transition flex items-center justify-center gap-2 mt-6 ${
+                    (!isFormValid() || loading) && "opacity-50 cursor-not-allowed"
+                  }`}
+                  disabled={!isFormValid() || loading}
+                >
+                  {loading ? "Confirming..." : "Confirm Appointment"}
+                </button>
+              </div>
+
+              {/* ORDER SUMMARY */}
+              <div
+                className={`relative w-full max-w-xs min-h-[360px] transition-all duration-500
+                  ${isPersonalInfoValid() ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8 pointer-events-none"}
+                `}
+                style={{ willChange: "opacity, transform" }}
               >
-                Confirm Appointment
-              </motion.button>
-            </form>
-          </motion.div>
+                {isPersonalInfoValid() && (
+                  <OrderSummary
+                    form={form}
+                    dateTime={dateTime}
+                    plan={selectedPlan}
+                  />
+                )}
+              </div>
+            </div>
+          </form>
         </div>
-      </motion.div>
+      </div>
     </>
   );
 }

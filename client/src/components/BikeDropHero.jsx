@@ -1,13 +1,12 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import bikeHero from '../assets/bike-hero.jpg'; // Ajustá el path si el archivo está en otro lado
+import bikeHero from '../assets/MaintenancePicture3.jpg';
 
 export default function BikeDropHero() {
   return (
     <section
       className="relative w-full overflow-hidden min-h-[420px] flex flex-col md:flex-row items-stretch bg-gradient-to-tr from-blue-50 via-blue-100 to-white"
     >
-      {/* Imagen para MOBILE (arriba del texto, con efecto hover/tap) */}
       <div className="block md:hidden w-full h-56 mb-6">
         <motion.img
           src={bikeHero}
@@ -19,14 +18,13 @@ export default function BikeDropHero() {
         />
       </div>
 
-      {/* Imagen para DESKTOP (derecha, diagonal, con efecto hover) */}
       <div className="hidden md:block absolute inset-y-0 right-0 w-3/5 h-full z-10">
         <motion.img
           src={bikeHero}
           alt="Woman riding a bike"
           className="w-full h-full object-cover"
           style={{
-            objectPosition: "center 0", // Bajá más si querés
+            objectPosition: "center 0",
             clipPath: "polygon(13% 0, 100% 0, 100% 100%, 0 100%)"
           }}
           whileHover={{ scale: 1.05 }}
@@ -34,7 +32,6 @@ export default function BikeDropHero() {
         />
       </div>
 
-      {/* TEXTO HERO */}
       <div className="relative z-20 w-full md:w-1/2 px-6 md:px-20 py-16 flex flex-col justify-center">
         <motion.div
           initial={{ opacity: 0, y: -16 }}

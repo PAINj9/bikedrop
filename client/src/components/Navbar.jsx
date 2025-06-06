@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import readyLogo from '../assets/Ready1Logo.png'; // Ajustá el path si tu Navbar.jsx está en otra carpeta
+import readyLogo from '../assets/Ready1Logo.png'; 
 
 const Navbar = ({ small }) => {
   const [scrolled, setScrolled] = useState(false);

@@ -1,9 +1,46 @@
 import { Star } from "lucide-react";
 import { motion } from "framer-motion";
 
-export default function PlansSection({ plans }) {
-  // Opcionales: props de animación si las querés de vuelta en las cards
+const plans = [
+  {
+    title: "Basic",
+    price: "179 DKK/month",
+    subtitle: "Perfect for casual or weekend riders",
+    features: [
+      "1 home visit/month",
+      "Exterior cleaning (frame, wheels)",
+      "Brake & gear adjustment",
+      "Safety check & tire inflation"
+    ]
+  },
+  {
+    title: "Pro",
+    price: "449 DKK/month",
+    subtitle: "Ultimate care & priority access",
+    features: [
+      "2 home visits/month",
+      "All Complete services",
+      "Drivetrain deep cleaning",
+      "Brake pads replacement (labour)",
+      "1 emergency on-demand visit/month",
+      "Priority scheduling"
+    ]
+  },
+  {
+    title: "Complete",
+    price: "299 DKK/month",
+    subtitle: "Best for commuters & regular cyclists",
+    features: [
+      "2 home visits/month",
+      "All Basic services",
+      "Chain lubrication",
+      "Wheel truing",
+      "Minor repairs (cables, bolts, seat, etc.)"
+    ]
+  }
+];
 
+export default function PlansSection() {
   return (
     <section
       id="plans"
@@ -16,7 +53,7 @@ export default function PlansSection({ plans }) {
         <motion.div
           whileHover={{ scale: 1.05, boxShadow: "0 0 30px 0 rgba(59,130,246,0.35)" }}
           transition={{ duration: 0.3, ease: [0.77, 0, 0.175, 1] }}
-          className="flex-1 bg-white border border-gray-200 rounded-2xl shadow-md p-8 flex flex-col items-center min-w-[270px] max-w-[320px] transition-shadow"
+          className="flex-1 bg-white border border-gray-200 rounded-2xl shadow-md p-8 flex flex-col items-center min-w-[370px] max-w-[370px] transition-shadow"
           style={{ willChange: "transform" }}
         >
           <div className="mb-2 text-xl font-bold text-blue-600">{plans[0].title}</div>
@@ -37,11 +74,11 @@ export default function PlansSection({ plans }) {
         <motion.div
           whileHover={{ scale: 1.08, boxShadow: "0 0 40px 4px rgba(253,224,71,0.65)" }}
           transition={{ duration: 0.3, ease: [0.77, 0, 0.175, 1] }}
-          className="relative flex-1 bg-white border-2 border-yellow-400 rounded-2xl shadow-lg p-10 flex flex-col items-center min-w-[320px] max-w-[370px] z-10 scale-105 transition-shadow"
+          className="relative flex-1 bg-white border-2 border-yellow-400 rounded-2xl shadow-lg p-8 flex flex-col items-center min-w-[370px] max-w-[370px] z-10 scale-105 transition-shadow"
           style={{ willChange: "transform" }}
         >
-          <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-yellow-400 text-white px-4 py-1 rounded-full text-xs font-bold shadow-lg flex items-center gap-1 animate-pulse">
-            <Star className="w-4 h-4" /> Popular
+          <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-yellow-400 text-yellow-900 px-4 py-1 rounded-full text-xs font-bold shadow-lg flex items-center gap-1 border border-yellow-600">
+            <Star className="w-4 h-4 text-yellow-900" /> Popular
           </div>
           <div className="mb-2 text-xl font-extrabold text-yellow-500">{plans[1].title}</div>
           <div className="text-4xl font-bold mb-2 text-yellow-500">{plans[1].price}</div>
@@ -61,10 +98,10 @@ export default function PlansSection({ plans }) {
         <motion.div
           whileHover={{ scale: 1.05, boxShadow: "0 0 40px 4px rgba(59,130,246,0.30)" }}
           transition={{ duration: 0.3, ease: [0.77, 0, 0.175, 1] }}
-          className="relative flex-1 bg-white border-2 border-blue-400 rounded-2xl shadow-lg p-10 flex flex-col items-center min-w-[320px] max-w-[370px] transition-shadow"
+          className="relative flex-1 bg-white border-2 border-blue-400 rounded-2xl shadow-lg p-8 flex flex-col items-center min-w-[370px] max-w-[370px] transition-shadow"
           style={{ willChange: "transform" }}
         >
-          <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-blue-500 text-white px-4 py-1 rounded-full text-xs font-bold shadow-lg flex items-center gap-1 animate-pulse">
+          <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-blue-500 text-white px-4 py-1 rounded-full text-xs font-bold shadow-lg flex items-center gap-1 border border-blue-700">
             <Star className="w-4 h-4 text-yellow-300" /> Best Value
           </div>
           <div className="mb-2 text-xl font-extrabold text-blue-500">{plans[2].title}</div>
