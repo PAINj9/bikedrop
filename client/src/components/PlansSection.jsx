@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Star } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const plans = [
   {
@@ -42,17 +43,6 @@ const plans = [
 ];
 
 export default function PlansSection() {
-  const [clickedIndex, setClickedIndex] = useState(null);
-
-  function handleBookNow(e, idx) {
-    e.preventDefault();
-    setClickedIndex(idx);
-    setTimeout(() => {
-      window.open("/book", "_blank", "noopener,noreferrer");
-      setClickedIndex(null);
-    }, 220);
-  }
-
   return (
     <section
       id="plans"
@@ -109,22 +99,21 @@ export default function PlansSection() {
                 </li>
               ))}
             </ul>
-            <motion.button
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.98 }}
-              animate={clickedIndex === idx ? { scale: 0.96, opacity: 0.7 } : {}}
-              transition={{ duration: 0.22, ease: "easeOut" }}
-              className={`py-2 px-6 sm:px-8 rounded-xl font-bold text-base sm:text-lg transition shadow-md ${
-                plan.title === "Pro"
-                  ? "bg-yellow-400 text-white hover:bg-yellow-500"
-                  : plan.title === "Complete"
-                  ? "bg-blue-500 text-white hover:bg-blue-600"
-                  : "bg-blue-600 text-white hover:bg-blue-700"
-              }`}
-              onClick={e => handleBookNow(e, idx)}
-            >
-              Book Now
-            </motion.button>
+            <Link to="/book" className="w-full">
+              <motion.button
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.98 }}
+                className={`w-full py-2 px-6 sm:px-8 rounded-xl font-bold text-base sm:text-lg transition shadow-md ${
+                  plan.title === "Pro"
+                    ? "bg-yellow-400 text-white hover:bg-yellow-500"
+                    : plan.title === "Complete"
+                    ? "bg-blue-500 text-white hover:bg-blue-600"
+                    : "bg-blue-600 text-white hover:bg-blue-700"
+                }`}
+              >
+                Book Now
+              </motion.button>
+            </Link>
           </motion.div>
         ))}
       </div>
