@@ -1,9 +1,9 @@
 import React from "react";
-
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import ScrollToTop from "./components/ScrollToTop";
 
 import BookAppointment from "./pages/BookAppointment";
 import BikeStatus from "./pages/BikeStatus";
@@ -12,7 +12,6 @@ import MainMenu from "./pages/MainMenu";
 import BikeDropPage from "./pages/BikeDropPage";
 import Faq from "./pages/Faq";
 import About from "./pages/About";
-
 
 function NotFound() {
   return (
@@ -27,6 +26,7 @@ function NotFound() {
 function App() {
   return (
     <BrowserRouter basename="/bikedrop">
+      <ScrollToTop />
 
       <ToastContainer
         position="top-right"
@@ -40,7 +40,6 @@ function App() {
         theme="colored"
       />
 
-
       <Routes>
         <Route path="/" element={<Navigate to="/main" replace />} />
         <Route path="/main" element={<BikeDropPage />} />
@@ -50,7 +49,6 @@ function App() {
         <Route path="/admin/reservations" element={<AdminReservations />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/about" element={<About />} />
-
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
