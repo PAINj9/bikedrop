@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet";
 
@@ -8,6 +9,9 @@ import BikeDropHero from "../components/BikeDropHero";
 import ServiceFeatures from "../components/ServiceFeatures";
 import PlansSection from "../components/PlansSection";
 import CTASection from "../components/CTASection";
+
+import HowItWorks from "../components/HowItWorks";
+import Testimonials from "../components/Testimonials";
 
 export default function BikeDropPage() {
   const plans = [
@@ -37,7 +41,7 @@ export default function BikeDropPage() {
     },
   ];
 
-  // --- Scroll inteligente: al entrar, hace scroll a anchor o arriba del todo ---
+
   useEffect(() => {
     const anchor = localStorage.getItem("scrollToAnchor");
     if (anchor) {
@@ -67,10 +71,14 @@ export default function BikeDropPage() {
       >
         <Navbar />
         <BikeDropHero />
-        {/* SECTION SERVICES: asegurate que tenga id="services" */}
+
         <ServiceFeatures />
-        {/* SECTION PLANS: asegurate que tenga id="plans" */}
+
         <PlansSection plans={plans} />
+
+        <HowItWorks />
+        <Testimonials />
+
         <CTASection />
         <Footer />
       </motion.div>

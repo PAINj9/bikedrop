@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { Star } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -41,82 +42,91 @@ const plans = [
 ];
 
 export default function PlansSection() {
+  const [clickedIndex, setClickedIndex] = useState(null);
+
+  function handleBookNow(e, idx) {
+    e.preventDefault();
+    setClickedIndex(idx);
+    setTimeout(() => {
+      window.open("/book", "_blank", "noopener,noreferrer");
+      setClickedIndex(null);
+    }, 220);
+  }
+
   return (
     <section
       id="plans"
-      className="py-20 px-6 md:px-20 bg-gray-50 scroll-mt-24"
+      className="py-12 px-2 sm:px-6 md:px-20 bg-gray-50 scroll-mt-24"
     >
-      <h2 className="text-3xl font-semibold text-center mb-12">Monthly Plans</h2>
-      <div className="flex flex-col md:flex-row justify-center items-stretch gap-6">
-
-        {/* Basic */}
-        <motion.div
-          whileHover={{ scale: 1.05, boxShadow: "0 0 30px 0 rgba(59,130,246,0.35)" }}
-          transition={{ duration: 0.3, ease: [0.77, 0, 0.175, 1] }}
-          className="flex-1 bg-white border border-gray-200 rounded-2xl shadow-md p-8 flex flex-col items-center min-w-[370px] max-w-[370px] transition-shadow"
-          style={{ willChange: "transform" }}
-        >
-          <div className="mb-2 text-xl font-bold text-blue-600">{plans[0].title}</div>
-          <div className="text-4xl font-extrabold mb-2 text-gray-900">{plans[0].price}</div>
-          <div className="mb-4 text-gray-500 text-sm">{plans[0].subtitle}</div>
-          <ul className="mb-6 text-gray-700 w-full space-y-1">
-            {plans[0].features.map((feature, i) => (
-              <li key={i} className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-blue-500"></span>
-                {feature}
-              </li>
-            ))}
-          </ul>
-          <button className="py-2 px-8 rounded-xl font-bold bg-blue-600 text-white hover:bg-blue-700 transition">Choose</button>
-        </motion.div>
-
-        {/* Pro */}
-        <motion.div
-          whileHover={{ scale: 1.08, boxShadow: "0 0 40px 4px rgba(253,224,71,0.65)" }}
-          transition={{ duration: 0.3, ease: [0.77, 0, 0.175, 1] }}
-          className="relative flex-1 bg-white border-2 border-yellow-400 rounded-2xl shadow-lg p-8 flex flex-col items-center min-w-[370px] max-w-[370px] z-10 scale-105 transition-shadow"
-          style={{ willChange: "transform" }}
-        >
-          <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-yellow-400 text-yellow-900 px-4 py-1 rounded-full text-xs font-bold shadow-lg flex items-center gap-1 border border-yellow-600">
-            <Star className="w-4 h-4 text-yellow-900" /> Popular
-          </div>
-          <div className="mb-2 text-xl font-extrabold text-yellow-500">{plans[1].title}</div>
-          <div className="text-4xl font-bold mb-2 text-yellow-500">{plans[1].price}</div>
-          <div className="mb-4 text-gray-500 text-sm">{plans[1].subtitle}</div>
-          <ul className="mb-6 text-gray-700 w-full space-y-1">
-            {plans[1].features.map((feature, i) => (
-              <li key={i} className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-yellow-400"></span>
-                {feature}
-              </li>
-            ))}
-          </ul>
-          <button className="py-2 px-8 rounded-xl font-bold bg-yellow-400 text-white hover:bg-yellow-500 shadow-md transition">Choose</button>
-        </motion.div>
-
-        {/* Complete */}
-        <motion.div
-          whileHover={{ scale: 1.05, boxShadow: "0 0 40px 4px rgba(59,130,246,0.30)" }}
-          transition={{ duration: 0.3, ease: [0.77, 0, 0.175, 1] }}
-          className="relative flex-1 bg-white border-2 border-blue-400 rounded-2xl shadow-lg p-8 flex flex-col items-center min-w-[370px] max-w-[370px] transition-shadow"
-          style={{ willChange: "transform" }}
-        >
-          <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-blue-500 text-white px-4 py-1 rounded-full text-xs font-bold shadow-lg flex items-center gap-1 border border-blue-700">
-            <Star className="w-4 h-4 text-yellow-300" /> Best Value
-          </div>
-          <div className="mb-2 text-xl font-extrabold text-blue-500">{plans[2].title}</div>
-          <div className="text-4xl font-bold mb-2 text-blue-500">{plans[2].price}</div>
-          <div className="mb-4 text-gray-500 text-sm">{plans[2].subtitle}</div>
-          <ul className="mb-6 text-gray-700 w-full space-y-1">
-            {plans[2].features.map((feature, i) => (
-              <li key={i} className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-blue-500"></span>
-                {feature}
-              </li>
-            ))}
-          </ul>
-          <button className="py-2 px-8 rounded-xl font-bold bg-blue-500 text-white hover:bg-blue-600 shadow-md transition">Choose</button>
-        </motion.div>
+      <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-8">Monthly Plans</h2>
+      <div className="w-full flex flex-col items-center gap-10 md:flex-row md:justify-center md:items-stretch md:gap-6">
+        {plans.map((plan, idx) => (
+          <motion.div
+            key={plan.title}
+            whileHover={{ scale: 1.03, boxShadow: "0 0 18px 0 rgba(59,130,246,0.20)" }}
+            transition={{ duration: 0.3, ease: [0.77, 0, 0.175, 1] }}
+            className={`
+              relative bg-white border rounded-2xl shadow-md
+              flex flex-col items-center
+              w-full
+              max-w-[390px]
+              md:min-w-[340px] md:max-w-[370px]
+              md:border-2
+              px-5 sm:px-8 pt-10 pb-7
+              transition-shadow
+              ${plan.title === "Pro"
+                ? "border-yellow-400 shadow-lg scale-105 z-10"
+                : plan.title === "Complete"
+                ? "border-blue-400 shadow-lg"
+                : "border-gray-200"}
+            `}
+            style={{
+              willChange: "transform",
+            }}
+          >
+            {plan.title === "Pro" && (
+              <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full text-xs font-bold shadow-lg flex items-center gap-1 border border-yellow-600">
+                <Star className="w-4 h-4 text-yellow-900" /> Popular
+              </div>
+            )}
+            {plan.title === "Complete" && (
+              <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg flex items-center gap-1 border border-blue-700">
+                <Star className="w-4 h-4 text-yellow-300" /> Best Value
+              </div>
+            )}
+            <div className={`mb-2 text-lg sm:text-xl font-bold ${plan.title === "Pro" ? "text-yellow-500" : plan.title === "Complete" ? "text-blue-500" : "text-blue-600"}`}>
+              {plan.title}
+            </div>
+            <div className={`text-3xl sm:text-4xl font-extrabold mb-2 ${plan.title === "Pro" ? "text-yellow-500" : plan.title === "Complete" ? "text-blue-500" : "text-gray-900"}`}>
+              {plan.price}
+            </div>
+            <div className="mb-4 text-gray-500 text-sm sm:text-base">{plan.subtitle}</div>
+            <ul className="mb-6 text-gray-700 w-full space-y-1 text-sm sm:text-base">
+              {plan.features.map((feature, i) => (
+                <li key={i} className="flex items-center gap-2">
+                  <span className={`w-2 h-2 rounded-full ${plan.title === "Pro" ? "bg-yellow-400" : plan.title === "Complete" ? "bg-blue-500" : "bg-blue-500"}`}></span>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+            <motion.button
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.98 }}
+              animate={clickedIndex === idx ? { scale: 0.96, opacity: 0.7 } : {}}
+              transition={{ duration: 0.22, ease: "easeOut" }}
+              className={`py-2 px-6 sm:px-8 rounded-xl font-bold text-base sm:text-lg transition shadow-md ${
+                plan.title === "Pro"
+                  ? "bg-yellow-400 text-white hover:bg-yellow-500"
+                  : plan.title === "Complete"
+                  ? "bg-blue-500 text-white hover:bg-blue-600"
+                  : "bg-blue-600 text-white hover:bg-blue-700"
+              }`}
+              onClick={e => handleBookNow(e, idx)}
+            >
+              Book Now
+            </motion.button>
+          </motion.div>
+        ))}
       </div>
     </section>
   );

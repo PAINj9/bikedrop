@@ -12,10 +12,12 @@ This project includes a fully functional web platform for customers to **book ap
 ### Main Page
 ![Screenshot 1](client/public/Screenshot_1.jpg)
 
+
 ---
 
 ### Appointment Page
-![Screenshot 2](client/public/Screenshot_2.jpg)
+![Screenshot 1](client/public/Screenshot_2.jpg)
+
 
 
 ---

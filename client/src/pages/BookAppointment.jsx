@@ -6,7 +6,7 @@ import Navbar from "../components/Navbar";
 import CalendarSelector from "../components/CalendarSelector";
 import PlanSelector from "../components/PlanSelector";
 import StepProgressBar from "../components/StepProgressBar";
-import OrderSummary from "../components/OrderSummary"; // Te paso abajo cómo hacerlo simple
+import OrderSummary from "../components/OrderSummary";
 
 export default function BookAppointment() {
   const navigate = useNavigate();
@@ -204,22 +204,26 @@ export default function BookAppointment() {
       </Helmet>
       <Navbar small />
 
-      <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-blue-50 via-white to-blue-100">
+      <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-blue-50 via-white to-blue-100 px-1">
         <div className="w-full max-w-5xl">
-          <StepProgressBar currentStep={step} />
+          {/* StepProgressBar con padding top */}
+          <div className="pt-5 sm:pt-8">
+            <StepProgressBar currentStep={step} />
+          </div>
 
           <form
             onSubmit={handleSubmit}
-            className="w-full bg-white border border-blue-100 shadow-2xl rounded-3xl px-10 py-12 mt-6 mb-12 transition-all duration-300"
+            className="w-full bg-white border border-blue-100 shadow-2xl rounded-2xl sm:rounded-3xl px-3 sm:px-10 py-7 sm:py-12 mt-6 mb-12 transition-all duration-300"
             autoComplete="off"
           >
-            <h2 className="text-3xl font-bold mb-7 text-blue-700 text-center">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-5 sm:mb-7 text-blue-700 text-center">
               Book Appointment
             </h2>
-            <div className="flex flex-col lg:flex-row gap-8">
+            {/* MOBILE: stack, DESKTOP: row */}
+            <div className="flex flex-col lg:flex-row gap-7 sm:gap-8">
               {/* FORMULARIO */}
               <div className="flex-1 transition-all duration-500">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                   <div>
                     <input
                       ref={inputRefs.name}
@@ -228,7 +232,7 @@ export default function BookAppointment() {
                       placeholder="Full Name*"
                       value={form.name}
                       onChange={handleChange}
-                      className="border border-gray-300 p-3 rounded-lg w-full focus:outline-blue-400"
+                      className="border border-gray-300 p-3 rounded-lg w-full focus:outline-blue-400 text-base"
                       required
                       maxLength={40}
                     />
@@ -244,7 +248,7 @@ export default function BookAppointment() {
                       placeholder="Phone*"
                       value={form.phone}
                       onChange={handleChange}
-                      className="border border-gray-300 p-3 rounded-lg w-full focus:outline-blue-400"
+                      className="border border-gray-300 p-3 rounded-lg w-full focus:outline-blue-400 text-base"
                       required
                       maxLength={15}
                     />
@@ -260,7 +264,7 @@ export default function BookAppointment() {
                       placeholder="Email*"
                       value={form.email}
                       onChange={handleChange}
-                      className="border border-gray-300 p-3 rounded-lg w-full focus:outline-blue-400"
+                      className="border border-gray-300 p-3 rounded-lg w-full focus:outline-blue-400 text-base"
                       required
                       maxLength={60}
                     />
@@ -276,7 +280,7 @@ export default function BookAppointment() {
                       placeholder="City*"
                       value={form.city}
                       onChange={handleChange}
-                      className="border border-gray-300 p-3 rounded-lg w-full focus:outline-blue-400"
+                      className="border border-gray-300 p-3 rounded-lg w-full focus:outline-blue-400 text-base"
                       required
                       maxLength={30}
                     />
@@ -292,14 +296,14 @@ export default function BookAppointment() {
                   placeholder="Address*"
                   value={form.address}
                   onChange={handleChange}
-                  className="border border-gray-300 p-3 rounded-lg w-full focus:outline-blue-400 mt-4"
+                  className="border border-gray-300 p-3 rounded-lg w-full focus:outline-blue-400 mt-4 text-base"
                   required
                   maxLength={50}
                 />
                 {errors.address && (
                   <div className="text-red-600 text-sm mt-1">{errors.address}</div>
                 )}
-                <div className="flex gap-4 mt-4">
+                <div className="flex gap-3 mt-4">
                   <div className="w-1/2">
                     <input
                       ref={inputRefs.floor}
@@ -308,7 +312,7 @@ export default function BookAppointment() {
                       placeholder="Floor*"
                       value={form.floor}
                       onChange={handleChange}
-                      className="border border-gray-300 p-3 rounded-lg w-full focus:outline-blue-400"
+                      className="border border-gray-300 p-3 rounded-lg w-full focus:outline-blue-400 text-base"
                       required
                       maxLength={10}
                     />
@@ -324,7 +328,7 @@ export default function BookAppointment() {
                       placeholder="Postal Code*"
                       value={form.postalCode}
                       onChange={handleChange}
-                      className="border border-gray-300 p-3 rounded-lg w-full focus:outline-blue-400"
+                      className="border border-gray-300 p-3 rounded-lg w-full focus:outline-blue-400 text-base"
                       required
                       maxLength={12}
                     />
@@ -334,7 +338,7 @@ export default function BookAppointment() {
                   </div>
                 </div>
                 {/* CALENDARIO y PLAN */}
-                <div className="mt-8">
+                <div className="mt-7">
                   {isPersonalInfoValid() && (
                     <CalendarSelector
                       value={dateTime}
@@ -364,8 +368,9 @@ export default function BookAppointment() {
 
               {/* ORDER SUMMARY */}
               <div
-                className={`relative w-full max-w-xs min-h-[360px] transition-all duration-500
+                className={`relative w-full max-w-xs min-h-[320px] transition-all duration-500
                   ${isPersonalInfoValid() ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8 pointer-events-none"}
+                  mx-auto lg:mx-0
                 `}
                 style={{ willChange: "opacity, transform" }}
               >
