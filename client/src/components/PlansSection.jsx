@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
@@ -12,8 +12,8 @@ const plans = [
       "1 home visit/month",
       "Exterior cleaning (frame, wheels)",
       "Brake & gear adjustment",
-      "Safety check & tire inflation"
-    ]
+      "Safety check & tire inflation",
+    ],
   },
   {
     title: "Pro",
@@ -25,8 +25,8 @@ const plans = [
       "Drivetrain deep cleaning",
       "Brake pads replacement (labour)",
       "1 emergency on-demand visit/month",
-      "Priority scheduling"
-    ]
+      "Priority scheduling",
+    ],
   },
   {
     title: "Complete",
@@ -37,9 +37,9 @@ const plans = [
       "All Basic services",
       "Chain lubrication",
       "Wheel truing",
-      "Minor repairs (cables, bolts, seat, etc.)"
-    ]
-  }
+      "Minor repairs (cables, bolts, seat, etc.)",
+    ],
+  },
 ];
 
 export default function PlansSection() {
@@ -48,12 +48,17 @@ export default function PlansSection() {
       id="plans"
       className="py-12 px-2 sm:px-6 md:px-20 bg-gray-50 scroll-mt-24"
     >
-      <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-8">Monthly Plans</h2>
+      <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-8">
+        Monthly Plans
+      </h2>
       <div className="w-full flex flex-col items-center gap-10 md:flex-row md:justify-center md:items-stretch md:gap-6">
-        {plans.map((plan, idx) => (
+        {plans.map((plan) => (
           <motion.div
             key={plan.title}
-            whileHover={{ scale: 1.03, boxShadow: "0 0 18px 0 rgba(59,130,246,0.20)" }}
+            whileHover={{
+              scale: 1.03,
+              boxShadow: "0 0 18px 0 rgba(59,130,246,0.20)",
+            }}
             transition={{ duration: 0.3, ease: [0.77, 0, 0.175, 1] }}
             className={`
               relative bg-white border rounded-2xl shadow-md
@@ -64,11 +69,13 @@ export default function PlansSection() {
               md:border-2
               px-5 sm:px-8 pt-10 pb-7
               transition-shadow
-              ${plan.title === "Pro"
-                ? "border-yellow-400 shadow-lg scale-105 z-10"
-                : plan.title === "Complete"
-                ? "border-blue-400 shadow-lg"
-                : "border-gray-200"}
+              ${
+                plan.title === "Pro"
+                  ? "border-yellow-400 shadow-lg md:scale-105 md:z-10"
+                  : plan.title === "Complete"
+                  ? "border-blue-400 shadow-lg"
+                  : "border-gray-200"
+              }
             `}
             style={{
               willChange: "transform",
@@ -84,17 +91,43 @@ export default function PlansSection() {
                 <Star className="w-4 h-4 text-yellow-300" /> Best Value
               </div>
             )}
-            <div className={`mb-2 text-lg sm:text-xl font-bold ${plan.title === "Pro" ? "text-yellow-500" : plan.title === "Complete" ? "text-blue-500" : "text-blue-600"}`}>
+            <div
+              className={`mb-2 text-lg sm:text-xl font-bold ${
+                plan.title === "Pro"
+                  ? "text-yellow-500"
+                  : plan.title === "Complete"
+                  ? "text-blue-500"
+                  : "text-blue-600"
+              }`}
+            >
               {plan.title}
             </div>
-            <div className={`text-3xl sm:text-4xl font-extrabold mb-2 ${plan.title === "Pro" ? "text-yellow-500" : plan.title === "Complete" ? "text-blue-500" : "text-gray-900"}`}>
+            <div
+              className={`text-3xl sm:text-4xl font-extrabold mb-2 ${
+                plan.title === "Pro"
+                  ? "text-yellow-500"
+                  : plan.title === "Complete"
+                  ? "text-blue-500"
+                  : "text-gray-900"
+              }`}
+            >
               {plan.price}
             </div>
-            <div className="mb-4 text-gray-500 text-sm sm:text-base">{plan.subtitle}</div>
+            <div className="mb-4 text-gray-500 text-sm sm:text-base">
+              {plan.subtitle}
+            </div>
             <ul className="mb-6 text-gray-700 w-full space-y-1 text-sm sm:text-base">
               {plan.features.map((feature, i) => (
                 <li key={i} className="flex items-center gap-2">
-                  <span className={`w-2 h-2 rounded-full ${plan.title === "Pro" ? "bg-yellow-400" : plan.title === "Complete" ? "bg-blue-500" : "bg-blue-500"}`}></span>
+                  <span
+                    className={`w-2 h-2 rounded-full ${
+                      plan.title === "Pro"
+                        ? "bg-yellow-400"
+                        : plan.title === "Complete"
+                        ? "bg-blue-500"
+                        : "bg-blue-500"
+                    }`}
+                  ></span>
                   {feature}
                 </li>
               ))}
