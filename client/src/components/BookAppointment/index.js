@@ -2,7 +2,7 @@
 
 export { default as AppointmentExtras } from "./AppointmentExtras";
 export { default as AppointmentSummary } from "./AppointmentSummary";
-export { default as BookingFooter } from "./BookingFooter";
+export { default as Footer } from "../Footer";  // <-- corregido acá
 export { default as CalendarSelector } from "./CalendarSelector";
 export { default as OrderSummary } from "./OrderSummary";
 export { default as PersonalInfoForm } from "./PersonalInfoForm";

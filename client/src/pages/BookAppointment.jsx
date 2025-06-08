@@ -9,7 +9,7 @@ import {
   PersonalInfoForm,
   AppointmentExtras,
   AppointmentSummary,
-  BookingFooter,
+  Footer,
   NotesInput,
   SubmitButtonWithLoader,
 } from "../components/BookAppointment";
@@ -101,7 +101,7 @@ export default function BookAppointment() {
             </div>
           </form>
 
-          <BookingFooter />
+          <Footer />
         </div>
       </div>
     </>

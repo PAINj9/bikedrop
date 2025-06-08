@@ -4,7 +4,6 @@ function generateTimeSlots() {
   const slots = [];
   for (let h = 9; h <= 20; h++) {
     slots.push(`${h.toString().padStart(2, "0")}:00`);
-    if (h < 20) slots.push(`${h.toString().padStart(2, "0")}:30`);
   }
   return slots;
 }

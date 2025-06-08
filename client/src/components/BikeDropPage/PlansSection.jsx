@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
@@ -63,7 +63,7 @@ export default function PlansSection() {
         Monthly Plans
       </h2>
 
-      {/* ✅ Mobile version with slider */}
+      {/* Mobile slider */}
       <div className="block md:hidden">
         <div ref={sliderRef} className="keen-slider overflow-visible">
           {plans.map((plan) => (
@@ -94,14 +94,17 @@ export default function PlansSection() {
         </div>
       </div>
 
-      {/* ✅ Desktop version intacta */}
+      {/* Desktop version */}
       <div className="w-full flex flex-col items-center gap-10 md:flex-row md:justify-center md:items-stretch md:gap-6 hidden md:flex">
         {plans.map((plan) => (
           <motion.div
             key={plan.title}
             whileHover={{
-              scale: 1.03,
-              boxShadow: "0 0 18px 0 rgba(59,130,246,0.20)",
+              scale: plan.title === "Pro" ? 1.05 : 1.03,
+              boxShadow:
+                plan.title === "Pro"
+                  ? "0 0 18px 0 rgba(253, 211, 71, 0.7)" // amarillo intenso para Pro
+                  : "0 0 18px 0 rgba(59,130,246,0.20)",
             }}
             transition={{ duration: 0.3, ease: [0.77, 0, 0.175, 1] }}
             className={`
@@ -115,7 +118,7 @@ export default function PlansSection() {
               transition-shadow
               ${
                 plan.title === "Pro"
-                  ? "border-yellow-400 shadow-lg md:scale-105 md:z-10"
+                  ? "border-yellow-400 shadow-lg md:z-10"
                   : plan.title === "Complete"
                   ? "border-blue-400 shadow-lg"
                   : "border-gray-200"
@@ -207,9 +210,7 @@ function CardContent({ plan }) {
           <li key={i} className="flex items-center gap-2">
             <span
               className={`w-2 h-2 rounded-full ${
-                plan.title === "Pro"
-                  ? "bg-yellow-400"
-                  : "bg-blue-500"
+                plan.title === "Pro" ? "bg-yellow-400" : "bg-blue-500"
               }`}
             ></span>
             {feature}
