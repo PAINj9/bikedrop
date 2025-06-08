@@ -44,7 +44,10 @@ const Navbar = ({ small }) => {
       <div className="flex justify-between items-center px-6 md:px-20">
         <a href="/main" onClick={handleLogoClick} className="flex items-center gap-2">
           <img src={readyLogo} alt="BikeDrop logo" className={`${small ? "h-10" : "h-20"}`} />
-          <span className={`font-bold ${scrolled ? "text-lg" : small ? "text-xl" : "text-2xl"}`}>BikeDrop</span>
+          {/* Texto sin cambio de tamaño en scroll */}
+          <span className={`font-bold text-2xl`}>
+            BikeDrop
+          </span>
         </a>
 
         <button className="md:hidden" onClick={() => setMenuOpen(!menuOpen)}>

@@ -12,7 +12,8 @@ export default function PersonalInfoForm({ form, errors, handleChange, inputRefs
             placeholder="Full Name*"
             value={form.name}
             onChange={handleChange}
-            className="border border-gray-300 p-3 rounded-lg w-full focus:outline-blue-400 text-base"
+            className="border border-gray-300 p-3 rounded-lg w-full text-base
+                       focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             required
             maxLength={40}
           />
@@ -26,7 +27,8 @@ export default function PersonalInfoForm({ form, errors, handleChange, inputRefs
             placeholder="Phone*"
             value={form.phone}
             onChange={handleChange}
-            className="border border-gray-300 p-3 rounded-lg w-full focus:outline-blue-400 text-base"
+            className="border border-gray-300 p-3 rounded-lg w-full text-base
+                       focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             required
             maxLength={15}
           />
@@ -40,7 +42,8 @@ export default function PersonalInfoForm({ form, errors, handleChange, inputRefs
             placeholder="Email*"
             value={form.email}
             onChange={handleChange}
-            className="border border-gray-300 p-3 rounded-lg w-full focus:outline-blue-400 text-base"
+            className="border border-gray-300 p-3 rounded-lg w-full text-base
+                       focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             required
             maxLength={60}
           />
@@ -54,7 +57,8 @@ export default function PersonalInfoForm({ form, errors, handleChange, inputRefs
             placeholder="City*"
             value={form.city}
             onChange={handleChange}
-            className="border border-gray-300 p-3 rounded-lg w-full focus:outline-blue-400 text-base"
+            className="border border-gray-300 p-3 rounded-lg w-full text-base
+                       focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             required
             maxLength={30}
           />
@@ -69,7 +73,8 @@ export default function PersonalInfoForm({ form, errors, handleChange, inputRefs
         placeholder="Address*"
         value={form.address}
         onChange={handleChange}
-        className="border border-gray-300 p-3 rounded-lg w-full focus:outline-blue-400 mt-4 text-base"
+        className="border border-gray-300 p-3 rounded-lg w-full mt-4 text-base
+                   focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
         required
         maxLength={50}
       />
@@ -84,7 +89,8 @@ export default function PersonalInfoForm({ form, errors, handleChange, inputRefs
             placeholder="Floor*"
             value={form.floor}
             onChange={handleChange}
-            className="border border-gray-300 p-3 rounded-lg w-full focus:outline-blue-400 text-base"
+            className="border border-gray-300 p-3 rounded-lg w-full text-base
+                       focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             required
             maxLength={10}
           />
@@ -98,7 +104,8 @@ export default function PersonalInfoForm({ form, errors, handleChange, inputRefs
             placeholder="Postal Code*"
             value={form.postalCode}
             onChange={handleChange}
-            className="border border-gray-300 p-3 rounded-lg w-full focus:outline-blue-400 text-base"
+            className="border border-gray-300 p-3 rounded-lg w-full text-base
+                       focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             required
             maxLength={12}
           />
