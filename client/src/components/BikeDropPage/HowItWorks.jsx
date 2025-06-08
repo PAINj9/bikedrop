@@ -27,7 +27,7 @@ export default function HowItWorks() {
       initial={{ opacity: 0, y: 60 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      viewport={{ once: false }} 
+      viewport={{ once: false }}
     >
       <div className="max-w-5xl mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-12">How It Works</h2>
@@ -42,7 +42,14 @@ export default function HowItWorks() {
               {step.icon}
               <div className="text-xl font-semibold mb-2 mt-2">{step.title}</div>
               <div className="text-gray-500">{step.desc}</div>
-              <div className="hidden md:block h-10 border-l-2 border-gray-200 mx-auto my-4" />
+
+              {/* Contenedor fijo para línea + número, para alinear */}
+              <div className="flex flex-col items-center justify-start h-24 mt-4">
+                <div className="w-px h-16 bg-gray-300"></div>
+                <div className="rounded-full bg-gray-300 text-gray-800 w-7 h-7 flex items-center justify-center font-semibold select-none mt-2">
+                  {idx + 1}
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>
