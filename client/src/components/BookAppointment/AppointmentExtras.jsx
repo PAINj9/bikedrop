@@ -1,6 +1,6 @@
 import React from "react";
-import CalendarSelector from "../components/CalendarSelector";
-import PlanSelector from "../components/PlanSelector";
+import CalendarSelector from "./CalendarSelector";
+import PlanSelector from "./PlanSelector";
 
 export default function AppointmentExtras({
   formValid,

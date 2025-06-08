@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function PersonalInfoForm({ form, errors, inputRefs, handleChange }) {
+export default function PersonalInfoForm({ form, errors, handleChange, inputRefs }) {
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">

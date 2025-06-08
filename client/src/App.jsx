@@ -1,5 +1,6 @@
+// src/App.jsx
 import React from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, Link } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -18,7 +19,9 @@ function NotFound() {
     <div style={{ padding: "4rem", textAlign: "center" }}>
       <h1>404 - Page Not Found</h1>
       <p>Oops! The page you’re looking for does not exist.</p>
-      <a href="/bikedrop/main">Go to Main Page</a>
+      <Link to="/main" style={{ color: "#2563eb", textDecoration: "underline" }}>
+        Go to Main Page
+      </Link>
     </div>
   );
 }

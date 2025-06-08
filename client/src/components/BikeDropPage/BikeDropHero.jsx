@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ChevronDown } from "lucide-react"; // Si no lo tenés, instalá lucide-react
-import bikeHero from '../assets/MaintenancePicture3.jpg';
+import bikeHero from "../../assets/MaintenancePicture3.jpg";
 
 export default function BikeDropHero() {
   return (

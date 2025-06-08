@@ -27,7 +27,7 @@ export default function HowItWorks() {
       initial={{ opacity: 0, y: 60 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      viewport={{ once: false }} // <-- Para animar cada vez que entra en pantalla
+      viewport={{ once: false }} 
     >
       <div className="max-w-5xl mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-12">How It Works</h2>

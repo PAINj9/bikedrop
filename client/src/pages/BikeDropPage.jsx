@@ -1,17 +1,19 @@
 import React, { useEffect } from "react";
-
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet";
 
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import BikeDropHero from "../components/BikeDropHero";
-import ServiceFeatures from "../components/ServiceFeatures";
-import PlansSection from "../components/PlansSection";
-import CTASection from "../components/CTASection";
 
-import HowItWorks from "../components/HowItWorks";
-import Testimonials from "../components/Testimonials";
+// ✅ Import optimizado desde el index.js de BikeDropPage
+import {
+  BikeDropHero,
+  ServiceFeatures,
+  PlansSection,
+  CTASection,
+  Testimonials,
+  HowItWorks,
+} from "../components/BikeDropPage";
 
 export default function BikeDropPage() {
   const plans = [
@@ -40,7 +42,6 @@ export default function BikeDropPage() {
       features: ["All from Basic", "Chain lubrication", "Wheel truing"],
     },
   ];
-
 
   useEffect(() => {
     const anchor = localStorage.getItem("scrollToAnchor");
@@ -71,14 +72,10 @@ export default function BikeDropPage() {
       >
         <Navbar />
         <BikeDropHero />
-
         <ServiceFeatures />
-
         <PlansSection plans={plans} />
-
         <HowItWorks />
         <Testimonials />
-
         <CTASection />
         <Footer />
       </motion.div>
