@@ -14,7 +14,7 @@ export default function BikeDropHero() {
           className="w-full h-full object-cover"
           style={{ objectPosition: "center 20%" }}
         />
-        <div className="absolute inset-0 backdrop-blur-[5px] bg-gradient-to-b from-blue-900/60 via-blue-700/10 to-white/60" />
+        <div className="absolute inset-0 backdrop-blur-[15px] bg-gradient-to-b from-blue-900/60 via-blue-700/10 to-white/60" />
       </div>
 
       {/* --- Mobile: Texto sin fondo extra, solo sombra y colores fuertes --- */}

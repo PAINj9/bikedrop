@@ -27,11 +27,7 @@ const testimonials = [
 ];
 
 function Stars({ count }) {
-  return (
-    <div className="text-red-600 text-lg mb-2">
-      {"★".repeat(count)}
-    </div>
-  );
+  return <div className="text-red-600 text-lg mb-2">{"★".repeat(count)}</div>;
 }
 
 export default function Testimonials() {
@@ -40,7 +36,7 @@ export default function Testimonials() {
   const [sliderRef, instanceRef] = useKeenSlider({
     slides: {
       perView: 1,
-      spacing: 18,
+      spacing: 16,
     },
     loop: true,
     dragSpeed: 1.1,
@@ -80,17 +76,17 @@ export default function Testimonials() {
         What People Are Saying
       </h2>
 
-      {/* MOBILE: Carrusel */}
-      <div className="block md:hidden px-2">
-        <div ref={sliderRef} className="keen-slider">
+      {/* ✅ MOBILE: Carrusel corregido */}
+      <div className="block md:hidden px-4 overflow-visible">
+        <div ref={sliderRef} className="keen-slider overflow-visible pb-10">
           {testimonials.map((t, idx) => (
             <motion.div
               key={idx}
-              className="keen-slider__slide flex justify-center"
+              className="keen-slider__slide w-full flex justify-center pt-4 overflow-visible"
               whileHover={{ scale: 1.03 }}
               transition={{ duration: 0.18, ease: "easeOut" }}
             >
-              <div className="bg-white rounded-2xl shadow-lg px-5 py-6 max-w-xs min-w-[200px] text-center mx-auto">
+              <div className="w-full max-w-xs bg-white rounded-2xl shadow-xl px-5 py-6 text-center mb-6">
                 <div className="font-semibold mb-1 text-base">{t.name}</div>
                 <Stars count={t.stars} />
                 <div className="italic text-gray-600 text-base">{t.text}</div>
@@ -98,8 +94,9 @@ export default function Testimonials() {
             </motion.div>
           ))}
         </div>
+
         {/* Dots Pagination */}
-        <div className="flex justify-center gap-2 mt-5">
+        <div className="flex justify-center gap-2 mt-2">
           {testimonials.map((_, idx) => (
             <button
               key={idx}
@@ -115,7 +112,7 @@ export default function Testimonials() {
         </div>
       </div>
 
-      {/* DESKTOP: Todos en fila */}
+      {/* ✅ DESKTOP: No se toca */}
       <div className="hidden md:flex flex-wrap justify-center gap-10 mt-10">
         {testimonials.map((t, idx) => (
           <motion.div
