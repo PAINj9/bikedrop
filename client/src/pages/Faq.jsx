@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import { Helmet } from "react-helmet";
 
 const faqs = [
@@ -44,14 +45,14 @@ const Faq = () => {
         <title>BikeDrop | FAQ</title>
       </Helmet>
 
-      <div className="min-h-screen bg-white text-gray-800">
+      <div className="min-h-screen flex flex-col bg-white text-gray-800">
         <Navbar />
-        {/* Animación de entrada al FAQ */}
+
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.77, 0, 0.175, 1] }}
-          className="max-w-4xl mx-auto py-16 px-6"
+          className="max-w-4xl mx-auto py-16 px-6 flex-grow"
         >
           <h1 className="text-3xl font-bold mb-10 text-center">
             Frequently Asked Questions
@@ -109,6 +110,8 @@ const Faq = () => {
             ))}
           </div>
         </motion.div>
+
+        <Footer />
       </div>
     </>
   );
