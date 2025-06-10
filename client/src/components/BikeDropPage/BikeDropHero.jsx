@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
-import bikeHero from "../../assets/MaintenancePicture3.jpg";
+import bikeHero from "../../assets/BikeService.png";
 
 export default function BikeDropHero() {
   return (
@@ -63,14 +63,13 @@ export default function BikeDropHero() {
         </motion.div>
       </div>
 
-      {/* --- Desktop: igual que antes --- */}
       <div className="hidden md:block absolute inset-y-0 right-0 w-3/5 h-full z-10">
         <motion.img
           src={bikeHero}
           alt="Woman riding a bike"
           className="w-full h-full object-cover"
           style={{
-            objectPosition: "center 0",
+            objectPosition: "center 3",
             clipPath: "polygon(13% 0, 100% 0, 100% 100%, 0 100%)"
           }}
           whileHover={{ scale: 1.05 }}
