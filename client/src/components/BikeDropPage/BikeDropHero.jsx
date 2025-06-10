@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ChevronDown } from "lucide-react"; // Si no lo tenés, instalá lucide-react
+import { ChevronDown } from "lucide-react";
 import bikeHero from "../../assets/MaintenancePicture3.jpg";
 
 export default function BikeDropHero() {
   return (
     <section className="relative w-full overflow-hidden min-h-[420px] flex flex-col md:flex-row items-stretch bg-gradient-to-tr from-blue-50 via-blue-100 to-white">
-      {/* --- Mobile: fondo imagen + overlay, ocupa 100vh --- */}
+
       <div className="md:hidden absolute inset-0 w-full h-screen min-h-[500px] z-0">
         <img
           src={bikeHero}
@@ -17,7 +17,7 @@ export default function BikeDropHero() {
         <div className="absolute inset-0 backdrop-blur-[15px] bg-gradient-to-b from-blue-900/60 via-blue-700/10 to-white/60" />
       </div>
 
-      {/* --- Mobile: Texto sin fondo extra, solo sombra y colores fuertes --- */}
+
       <div className="md:hidden relative z-10 flex flex-col items-center justify-center w-full h-screen min-h-[500px] py-12 px-4 text-center">
         <motion.div
           initial={{ opacity: 0, y: -16 }}
