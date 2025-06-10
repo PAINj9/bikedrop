@@ -6,7 +6,7 @@ export default function NotesInput({ value, onChange }) {
         placeholder="Additional notes (optional)"
         value={value}
         onChange={onChange}
-        className="border border-gray-300 p-3 rounded-lg w-full focus:outline-blue-400"
+        className="border border-gray-300 p-3 rounded-lg w-full focus:outline-blue-400 resize-none"
         rows={3}
         maxLength={250}
       />

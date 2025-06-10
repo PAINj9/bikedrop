@@ -59,7 +59,7 @@ export default function PlansSection() {
       id="plans"
       className="py-12 px-2 sm:px-6 md:px-20 bg-gray-50 scroll-mt-24"
     >
-      <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-8">
+      <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-14">
         Monthly Plans
       </h2>
 
@@ -103,13 +103,13 @@ export default function PlansSection() {
               scale: plan.title === "Pro" ? 1.05 : 1.03,
               boxShadow:
                 plan.title === "Pro"
-                  ? "0 0 18px 0 rgba(253, 211, 71, 0.7)" // amarillo intenso para Pro
+                  ? "0 0 18px 0 rgba(253, 211, 71, 0.7)"
                   : "0 0 18px 0 rgba(59,130,246,0.20)",
             }}
             transition={{ duration: 0.3, ease: [0.77, 0, 0.175, 1] }}
             className={`
               relative bg-white border rounded-2xl shadow-md
-              flex flex-col items-center
+              flex flex-col items-center justify-between
               w-full
               max-w-[390px]
               md:min-w-[340px] md:max-w-[370px]
@@ -127,7 +127,9 @@ export default function PlansSection() {
             style={{ willChange: "transform" }}
           >
             <Badge plan={plan} />
-            <CardContent plan={plan} />
+            <div className="flex flex-col justify-between h-full w-full">
+              <CardContent plan={plan} />
+            </div>
           </motion.div>
         ))}
       </div>
@@ -140,7 +142,7 @@ function PlanCard({ plan }) {
     <div
       className={`
         relative bg-white border rounded-2xl shadow-md
-        flex flex-col items-center
+        flex flex-col items-center justify-between
         w-full max-w-[390px] md:min-w-[340px] md:max-w-[370px]
         border
         px-5 sm:px-8 pt-10 pb-7
@@ -154,7 +156,9 @@ function PlanCard({ plan }) {
       `}
     >
       <Badge plan={plan} />
-      <CardContent plan={plan} />
+      <div className="flex flex-col justify-between h-full w-full">
+        <CardContent plan={plan} />
+      </div>
     </div>
   );
 }
@@ -179,45 +183,48 @@ function Badge({ plan }) {
 
 function CardContent({ plan }) {
   return (
-    <>
-      <div
-        className={`mb-2 text-lg sm:text-xl font-bold ${
-          plan.title === "Pro"
-            ? "text-yellow-500"
-            : plan.title === "Complete"
-            ? "text-blue-500"
-            : "text-blue-600"
-        }`}
-      >
-        {plan.title}
+    <div className="flex flex-col justify-between h-full w-full">
+      <div>
+        <div
+          className={`mb-2 text-lg sm:text-xl font-bold ${
+            plan.title === "Pro"
+              ? "text-yellow-500"
+              : plan.title === "Complete"
+              ? "text-blue-500"
+              : "text-blue-600"
+          }`}
+        >
+          {plan.title}
+        </div>
+        <div
+          className={`text-3xl sm:text-4xl font-extrabold mb-2 ${
+            plan.title === "Pro"
+              ? "text-yellow-500"
+              : plan.title === "Complete"
+              ? "text-blue-500"
+              : "text-gray-900"
+          }`}
+        >
+          {plan.price}
+        </div>
+        <div className="mb-4 text-gray-500 text-sm sm:text-base text-center">
+          {plan.subtitle}
+        </div>
+        <ul className="mb-6 text-gray-700 w-full space-y-1 text-sm sm:text-base">
+          {plan.features.map((feature, i) => (
+            <li key={i} className="flex items-center gap-2">
+              <span
+                className={`w-2 h-2 rounded-full ${
+                  plan.title === "Pro" ? "bg-yellow-400" : "bg-blue-500"
+                }`}
+              ></span>
+              {feature}
+            </li>
+          ))}
+        </ul>
       </div>
-      <div
-        className={`text-3xl sm:text-4xl font-extrabold mb-2 ${
-          plan.title === "Pro"
-            ? "text-yellow-500"
-            : plan.title === "Complete"
-            ? "text-blue-500"
-            : "text-gray-900"
-        }`}
-      >
-        {plan.price}
-      </div>
-      <div className="mb-4 text-gray-500 text-sm sm:text-base text-center">
-        {plan.subtitle}
-      </div>
-      <ul className="mb-6 text-gray-700 w-full space-y-1 text-sm sm:text-base">
-        {plan.features.map((feature, i) => (
-          <li key={i} className="flex items-center gap-2">
-            <span
-              className={`w-2 h-2 rounded-full ${
-                plan.title === "Pro" ? "bg-yellow-400" : "bg-blue-500"
-              }`}
-            ></span>
-            {feature}
-          </li>
-        ))}
-      </ul>
-      <Link to="/book" className="w-full">
+
+      <Link to="/book" className="w-full mt-auto">
         <motion.button
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.98 }}
@@ -232,6 +239,6 @@ function CardContent({ plan }) {
           Book Now
         </motion.button>
       </Link>
-    </>
+    </div>
   );
 }

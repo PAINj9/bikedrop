@@ -19,7 +19,7 @@ export default function Footer() {
     <footer className="bg-white text-gray-500 text-sm border-t border-blue-100 px-6 py-8">
       <div className="max-w-5xl mx-auto flex flex-col items-center gap-4 text-center">
 
-        <p className="text-gray-600 font-medium">© 2025 BikeDrop. Made in Denmark with 💚 and WD-40.</p>
+        <p className="text-gray-600 font-medium">© 2025 BikeDrop. Made in Denmark with 💙 and WD-40.</p>
 
         {/* Tel, Mail e Instagram en la misma fila */}
         <div className="flex flex-wrap justify-center items-center gap-6 text-gray-700">

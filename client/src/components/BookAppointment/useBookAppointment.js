@@ -16,7 +16,7 @@ export default function useBookAppointment() {
     postalCode: "",
   });
 
-  const [note, setNote] = useState(""); 
+  const [note, setNote] = useState(""); // ← antes lo manejabas así
 
   const [errors, setErrors] = useState({});
   const [dateTime, setDateTime] = useState({ date: null, slot: null });
@@ -147,7 +147,7 @@ export default function useBookAppointment() {
         : dateTime.date?.toISOString().slice(0, 10),
       time: dateTime.slot,
       service: selectedPlan,
-      note: note.trim(), 
+      note: note.trim(), // ← notita por separado
     };
 
     setLoading(true);
